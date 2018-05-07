@@ -1,0 +1,5 @@
+Antonio;Pérez Medrano;18076221S;antonio@gmail.com
+Juan;Saenz León;04589265Y;juan@gmail.com
+Guillermo;Domínguez Pizjuan;62084653V;guillermo@protonmail.com
+Luis;Lerena Pérez;40173824T;luis@gmail.com
+Victor;Pérez Pérez;09990442R;victor@icloud.com
