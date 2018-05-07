@@ -21,10 +21,12 @@ import javax.swing.table.TableRowSorter;
 
 import org.apache.commons.text.WordUtils;
 
+import Modelo.Conexion;
 import Modelo.Constantes;
 import Modelo.Fichero;
 import Modelo.Medico;
 import Modelo.Paciente;
+import Modelo.Tecnico;
 import Modelo.Usuario;
 import Vista.VentanaAgregarPaciente;
 import Vista.VentanaLogin;
@@ -42,7 +44,7 @@ public class ControladorMedico implements ActionListener, KeyListener, MouseList
 		this.ventanaControlada = ventanaMedico;
 		this.manipulator = new ImageManipulator();
 		cargarNombreMedico();
-		cargarPacientesMedico(ventanaMedico.getNombreUsuario());// Accion a realizar al abrir la ventana
+		cargarPacientesMedico();// Accion a realizar al abrir la ventana
 	}
 
 	public void setVentanaControlada(VentanaMedico ventanaControlada) {
@@ -138,30 +140,23 @@ public class ControladorMedico implements ActionListener, KeyListener, MouseList
 		((DefaultTableModel) model).addRow(fila);
 	}
 
-	private void cargarPacientesMedico(String idMedico) {
-		Fichero fichero = new Fichero();
-		Medico medico;
-		try {
-			medico = fichero.cargarMedicoID(idMedico);
-			if (medico != null) {
-				lstPacientes = medico.getPacientes();
-				DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
-				for (Paciente paciente : lstPacientes) {
-					Object[] fila = new Object[4]; // creamos un objeto de tipo array para las distintas cajas
+	private void cargarPacientesMedico() {
+		Conexion c = new Conexion();
+		lstPacientes = c.cargarPacientesBDD();
+		DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
+		for (Paciente paciente : lstPacientes) {
+			Object[] fila = new Object[4]; // creamos un objeto de tipo array
+											// para las distintas cajas
 
-					fila[0] = paciente.getDni();
-					fila[1] = Paciente.PACIENTE;
-					fila[2] = paciente.getNombre();
-					fila[3] = paciente.getApellido();
-					((DefaultTableModel) model).addRow(fila);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			fila[0] = paciente.getDni();
+			fila[1] = Paciente.PACIENTE;
+			fila[2] = paciente.getNombre();
+			fila[3] = paciente.getApellido();
+			((DefaultTableModel) model).addRow(fila);
 		}
 
 	}
-
+		
 	public void ampliarInfo() {
 		JEditorPane editorpane = ventanaControlada.getEditorPane();
 		JTable tabla = ventanaControlada.getTable();

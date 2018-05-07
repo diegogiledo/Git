@@ -54,6 +54,12 @@ public class Paciente extends Usuario {
 		this.electros = new ArrayList<String>();
 	}
 
+	
+
+	public Paciente() {
+		super();
+	}
+
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}

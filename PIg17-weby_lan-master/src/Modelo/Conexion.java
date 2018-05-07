@@ -78,7 +78,64 @@ public class Conexion {
 		}
 		return rol;
 	}
+	public List<Paciente> cargarPacientesBDD(){
+		List<Paciente> lstPaciente = new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
 
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
+
+			while (rs.next()) {
+
+				String fechaNacimiento = rs.getString("FechaNac");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellidos");
+				String dni = rs.getString("DNIPAC");
+				int altura = rs.getInt("Altura");
+				int kg = rs.getInt("Peso");
+				int gramos = rs.getInt("Gramos");
+				String comentario = rs.getString("Comentario");
+				String provincia = rs.getString("Provincia");
+				String municipio = rs.getString("Municipio");
+				String calle = rs.getString("Calle");
+				//String estado = rs.getString("Estado");
+				String cp = rs.getString("Cp");
+				String telefono = rs.getString("Telefono");
+				//List<String> electros;
+
+				Paciente newPac = new Paciente ();
+				newPac.setFechaNacimiento(fechaNacimiento);
+				newPac.setAltura(altura);
+				newPac.setKg(kg);
+				newPac.setGramos(gramos);
+				newPac.setComentario(comentario);
+				newPac.setNombre(nombre);
+				newPac.setApellido(apellido);
+				newPac.setDni(dni);
+				newPac.setProvincia(provincia);
+				newPac.setMunicipio(municipio);
+				newPac.setCalle(calle);
+				//newPac.setEstado(estado);
+				newPac.setCp(cp);
+				newPac.setTelefono(telefono);
+				lstPaciente.add(newPac);// Añadimos los pacientes a lstMedico
+
+			}
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return lstPaciente;
+
+	}
+		
+	
 	public List<Tecnico> cargarTecnicosBDD() {
 		List<Tecnico> lstTecnico = new ArrayList<Tecnico>();
 		try {

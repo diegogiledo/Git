@@ -14,6 +14,9 @@ public class Usuario {
 	public Usuario(String dni) {
 		this.dni = dni;
 	}
+	public Usuario() {
+		
+	}
 
 	public Usuario(String nombreUsuario, String contrasena, String tipoUsuario, String nombre, String apellido,
 			String dni, String email, String sexo) {
