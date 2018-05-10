@@ -1,5 +1,5 @@
 package Modelo;
-//Diego
+//Diego y manuel 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
