@@ -1,5 +1,5 @@
 package Modelo;
-//Diego y manuel 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -78,64 +78,7 @@ public class Conexion {
 		}
 		return rol;
 	}
-	public List<Paciente> cargarPacientesBDD(){
-		List<Paciente> lstPaciente = new ArrayList<Paciente>();
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
-			c.setAutoCommit(false);
 
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
-
-			while (rs.next()) {
-
-				String fechaNacimiento = rs.getString("FechaNac");
-				String nombre = rs.getString("Nombre");
-				String apellido = rs.getString("Apellidos");
-				String dni = rs.getString("DNIPAC");
-				int altura = rs.getInt("Altura");
-				int kg = rs.getInt("Peso");
-				int gramos = rs.getInt("Gramos");
-				String comentario = rs.getString("Comentario");
-				String provincia = rs.getString("Provincia");
-				String municipio = rs.getString("Municipio");
-				String calle = rs.getString("Calle");
-				//String estado = rs.getString("Estado");
-				String cp = rs.getString("Cp");
-				String telefono = rs.getString("Telefono");
-				//List<String> electros;
-
-				Paciente newPac = new Paciente ();
-				newPac.setFechaNacimiento(fechaNacimiento);
-				newPac.setAltura(altura);
-				newPac.setKg(kg);
-				newPac.setGramos(gramos);
-				newPac.setComentario(comentario);
-				newPac.setNombre(nombre);
-				newPac.setApellido(apellido);
-				newPac.setDni(dni);
-				newPac.setProvincia(provincia);
-				newPac.setMunicipio(municipio);
-				newPac.setCalle(calle);
-				//newPac.setEstado(estado);
-				newPac.setCp(cp);
-				newPac.setTelefono(telefono);
-				lstPaciente.add(newPac);// Añadimos los pacientes a lstMedico
-
-			}
-			rs.close();
-			c.commit();
-			stmt.close();
-			c.close();
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		}
-		return lstPaciente;
-
-	}
-		
-	
 	public List<Tecnico> cargarTecnicosBDD() {
 		List<Tecnico> lstTecnico = new ArrayList<Tecnico>();
 		try {
@@ -369,4 +312,155 @@ public class Conexion {
 		return correcto;
 	}
 
+	public List<Paciente> cargarPacientesBBDD() {
+		List<Paciente> lstPaciente = new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
+
+			while (rs.next()) {
+
+				String dni = rs.getString("DNIPAC");
+				String nombre = rs.getString("Nombre");
+				String apellidos = rs.getString("Apellidos");
+				String email = rs.getString("Email");
+
+				// ampliarinfo
+				String municipio = rs.getString("Municipio");
+				String calle = rs.getString("Calle");
+				String estado = rs.getString("Estado");
+				String sexo = rs.getString("Sexo");
+				String comentario = rs.getString("Comentario");
+				String fechaNac = rs.getString("FechaNac");
+				int altura = rs.getInt("Altura");
+				int peso = rs.getInt("Peso");
+				int gramos = rs.getInt("Gramos");
+				String provincia = rs.getString("Provincia");
+				String cp = rs.getString("Cp");
+				String ccaa = rs.getString("CCAA");
+				String telefono = rs.getString("Telefono");
+				
+			
+
+				Paciente paciente = new Paciente(dni, nombre, apellidos, email, municipio, calle, estado, sexo,
+						comentario, fechaNac, altura, peso, gramos, provincia, cp, ccaa, telefono);
+				lstPaciente.add(paciente);
+			}
+
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		System.out.println("Consulta terminada");
+
+		return lstPaciente;
+	}
+
+//	public void ampliarInfo(String dni){
+//		try {
+//			Class.forName("org.sqlite.JDBC");
+//			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+//			c.setAutoCommit(false);
+//
+//			stmt = c.createStatement();
+//			ResultSet rs = stmt.executeQuery(
+//					"select * from Pacientes where Pacientes.DNIPAC = '"+dni+"'");
+//
+//			while (rs.next()) {
+//				String dniPac = rs.getString("DNIPAC");
+//				String nombre = rs.getString("Nombre");
+//				String apellidos = rs.getString("Apellidos");
+//				String email = rs.getString("Email");
+//
+//				// ampliarinfo
+//				 String municipio = rs.getString("Municipio");
+//				 String calle = rs.getString("Calle");
+//				 String estado = rs.getString("Estado");
+//				 String sexo = rs.getString("Sexo");
+//				 String comentario = rs.getString("Comentario");
+//				 String fechaNac = rs.getString("FechaNac");
+//				 int altura = rs.getInt("Altura");
+//				 int peso = rs.getInt("Peso");
+//				 int gramos = rs.getInt("Gramos");
+//				 String provincia = rs.getString("Provincia");
+//				 String ccaa = rs.getString("CCAA");
+//				 int telefono = rs.getInt("Telefono");
+//
+//				 Usuario usuario = new Usuario(dni,);
+//				
+//			}
+//
+//			rs.close();
+//			c.commit();
+//			stmt.close();
+//			c.close();
+//		} catch (Exception e) {
+//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//		}
+//		
+//		
+//	}
+	public List<Paciente> cargarPacientesBDD(){
+		List<Paciente> lstPaciente = new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
+
+			while (rs.next()) {
+
+				String fechaNacimiento = rs.getString("FechaNac");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellidos");
+				String dni = rs.getString("DNIPAC");
+				int altura = rs.getInt("Altura");
+				int kg = rs.getInt("Peso");
+				int gramos = rs.getInt("Gramos");
+				String comentario = rs.getString("Comentario");
+				String provincia = rs.getString("Provincia");
+				String municipio = rs.getString("Municipio");
+				String calle = rs.getString("Calle");
+				//String estado = rs.getString("Estado");
+				String cp = rs.getString("Cp");
+				String telefono = rs.getString("Telefono");
+				//List<String> electros;
+
+				Paciente newPac = new Paciente ();
+				newPac.setFechaNacimiento(fechaNacimiento);
+				newPac.setAltura(altura);
+				newPac.setKg(kg);
+				newPac.setGramos(gramos);
+				newPac.setComentario(comentario);
+				newPac.setNombre(nombre);
+				newPac.setApellido(apellido);
+				newPac.setDni(dni);
+				newPac.setProvincia(provincia);
+				newPac.setMunicipio(municipio);
+				newPac.setCalle(calle);
+				//newPac.setEstado(estado);
+				newPac.setCp(cp);
+				newPac.setTelefono(telefono);
+				lstPaciente.add(newPac);// AÃ±adimos los pacientes a lstMedico
+
+			}
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return lstPaciente;
+
+	}
 }
