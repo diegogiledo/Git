@@ -14,8 +14,9 @@ public class Usuario {
 	public Usuario(String dni) {
 		this.dni = dni;
 	}
+
 	public Usuario() {
-		
+
 	}
 
 	public Usuario(String nombreUsuario, String contrasena, String tipoUsuario, String nombre, String apellido,
@@ -36,11 +37,27 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Usuario(String dni, String nombre, String apellidos, String email, String sexo) {
+		// TODO Auto-generated constructor stub
+		this.nombre = nombre;
+		this.apellido = apellidos;
+		this.dni = dni;
+		this.email = email;
+		this.sexo = sexo;
+	}
+
 	public boolean equals(Object obj) {
 		boolean equal = false;
 		if (obj instanceof Usuario) {
 			Usuario usuario = (Usuario) obj;
-			equal = (usuario.dni == null && dni == null) || (dni != null && dni.equalsIgnoreCase(usuario.dni));// Un usuario = otro si tienen mismo dni
+			equal = (usuario.dni == null && dni == null) || (dni != null && dni.equalsIgnoreCase(usuario.dni));// Un
+																												// usuario
+																												// =
+																												// otro
+																												// si
+																												// tienen
+																												// mismo
+																												// dni
 			equal |= (nombreUsuario != null && nombreUsuario.equalsIgnoreCase(usuario.nombreUsuario));
 		}
 		return equal;

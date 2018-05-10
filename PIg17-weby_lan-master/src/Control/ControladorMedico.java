@@ -26,7 +26,6 @@ import Modelo.Constantes;
 import Modelo.Fichero;
 import Modelo.Medico;
 import Modelo.Paciente;
-import Modelo.Tecnico;
 import Modelo.Usuario;
 import Vista.VentanaAgregarPaciente;
 import Vista.VentanaLogin;
@@ -156,7 +155,7 @@ public class ControladorMedico implements ActionListener, KeyListener, MouseList
 		}
 
 	}
-		
+
 	public void ampliarInfo() {
 		JEditorPane editorpane = ventanaControlada.getEditorPane();
 		JTable tabla = ventanaControlada.getTable();

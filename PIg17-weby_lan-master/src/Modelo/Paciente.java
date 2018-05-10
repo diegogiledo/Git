@@ -42,11 +42,15 @@ public class Paciente extends Usuario {
 		this.telefono = telefono;
 		this.electros = electros;
 	}
+	// hola
 
 	public Paciente(String nombreUsuario, String contrasena, String tipoUsuario, String nombre, String apellido,
 			String dni, String email, String sexo) {
 		super(nombreUsuario, contrasena, tipoUsuario, nombre, apellido, dni, email, sexo);
 		this.electros = new ArrayList<String>();
+	}
+	public Paciente(){
+		super();
 	}
 
 	public Paciente(String dni) {
@@ -56,8 +60,25 @@ public class Paciente extends Usuario {
 
 	
 
-	public Paciente() {
-		super();
+	public Paciente(String dni, String nombre, String apellidos, String email, String municipio, String calle,
+			String estado, String sexo, String comentario, String fechaNac, int altura, int peso, int gramos,
+			String provincia, String cp, String ccaa, String telefono) {
+		super(dni, nombre, apellidos, email, sexo);
+		this.fechaNacimiento = fechaNac;
+		this.altura = altura;
+		this.kg = peso;
+		this.gramos = gramos;
+		this.edad = edad();
+		this.comentario = comentario;
+		this.comunidad = ccaa;
+		this.provincia = provincia;
+		this.municipio = municipio;
+		this.calle = calle;
+		this.estado = estado;
+		this.cp = cp;
+		this.telefono = telefono;
+
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getFechaNacimiento() {
@@ -174,10 +195,13 @@ public class Paciente extends Usuario {
 
 	public int edad() {
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);// Fecha de nacimiento
+		LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);// Fecha de
+																	// nacimiento
 		LocalDate ahora = LocalDate.now();// Fecha actual
 
-		Period periodo = Period.between(fechaNac, ahora);// Diferencia entre fecha nacimiento y fecha actual
+		Period periodo = Period.between(fechaNac, ahora);// Diferencia entre
+															// fecha nacimiento
+															// y fecha actual
 		return periodo.getYears();
 	}
 

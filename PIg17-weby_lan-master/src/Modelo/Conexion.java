@@ -1,5 +1,5 @@
 package Modelo;
-//Diego y manuel 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -78,64 +78,7 @@ public class Conexion {
 		}
 		return rol;
 	}
-	public List<Paciente> cargarPacientesBDD(){
-		List<Paciente> lstPaciente = new ArrayList<Paciente>();
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
-			c.setAutoCommit(false);
 
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
-
-			while (rs.next()) {
-
-				String fechaNacimiento = rs.getString("FechaNac");
-				String nombre = rs.getString("Nombre");
-				String apellido = rs.getString("Apellidos");
-				String dni = rs.getString("DNIPAC");
-				int altura = rs.getInt("Altura");
-				int kg = rs.getInt("Peso");
-				int gramos = rs.getInt("Gramos");
-				String comentario = rs.getString("Comentario");
-				String provincia = rs.getString("Provincia");
-				String municipio = rs.getString("Municipio");
-				String calle = rs.getString("Calle");
-				//String estado = rs.getString("Estado");
-				String cp = rs.getString("Cp");
-				String telefono = rs.getString("Telefono");
-				//List<String> electros;
-
-				Paciente newPac = new Paciente ();
-				newPac.setFechaNacimiento(fechaNacimiento);
-				newPac.setAltura(altura);
-				newPac.setKg(kg);
-				newPac.setGramos(gramos);
-				newPac.setComentario(comentario);
-				newPac.setNombre(nombre);
-				newPac.setApellido(apellido);
-				newPac.setDni(dni);
-				newPac.setProvincia(provincia);
-				newPac.setMunicipio(municipio);
-				newPac.setCalle(calle);
-				//newPac.setEstado(estado);
-				newPac.setCp(cp);
-				newPac.setTelefono(telefono);
-				lstPaciente.add(newPac);// AÃ±adimos los pacientes a lstMedico
-
-			}
-			rs.close();
-			c.commit();
-			stmt.close();
-			c.close();
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-		}
-		return lstPaciente;
-
-	}
-		
-	
 	public List<Tecnico> cargarTecnicosBDD() {
 		List<Tecnico> lstTecnico = new ArrayList<Tecnico>();
 		try {
@@ -369,4 +312,255 @@ public class Conexion {
 		return correcto;
 	}
 
+	public List<Paciente> cargarPacientesBBDD() {
+		List<Paciente> lstPaciente = new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
+
+			while (rs.next()) {
+
+				String dni = rs.getString("DNIPAC");
+				String nombre = rs.getString("Nombre");
+				String apellidos = rs.getString("Apellidos");
+				String email = rs.getString("Email");
+
+				// ampliarinfo
+				String municipio = rs.getString("Municipio");
+				String calle = rs.getString("Calle");
+				String estado = rs.getString("Estado");
+				String sexo = rs.getString("Sexo");
+				String comentario = rs.getString("Comentario");
+				String fechaNac = rs.getString("FechaNac");
+				int altura = rs.getInt("Altura");
+				int peso = rs.getInt("Peso");
+				int gramos = rs.getInt("Gramos");
+				String provincia = rs.getString("Provincia");
+				String cp = rs.getString("Cp");
+				String ccaa = rs.getString("CCAA");
+				String telefono = rs.getString("Telefono");
+				
+			
+
+				Paciente paciente = new Paciente(dni, nombre, apellidos, email, municipio, calle, estado, sexo,
+						comentario, fechaNac, altura, peso, gramos, provincia, cp, ccaa, telefono);
+				lstPaciente.add(paciente);
+			}
+
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		System.out.println("Consulta terminada");
+
+		return lstPaciente;
+	}
+
+//	public void ampliarInfo(String dni){
+//		try {
+//			Class.forName("org.sqlite.JDBC");
+//			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+//			c.setAutoCommit(false);
+//
+//			stmt = c.createStatement();
+//			ResultSet rs = stmt.executeQuery(
+//					"select * from Pacientes where Pacientes.DNIPAC = '"+dni+"'");
+//
+//			while (rs.next()) {
+//				String dniPac = rs.getString("DNIPAC");
+//				String nombre = rs.getString("Nombre");
+//				String apellidos = rs.getString("Apellidos");
+//				String email = rs.getString("Email");
+//
+//				// ampliarinfo
+//				 String municipio = rs.getString("Municipio");
+//				 String calle = rs.getString("Calle");
+//				 String estado = rs.getString("Estado");
+//				 String sexo = rs.getString("Sexo");
+//				 String comentario = rs.getString("Comentario");
+//				 String fechaNac = rs.getString("FechaNac");
+//				 int altura = rs.getInt("Altura");
+//				 int peso = rs.getInt("Peso");
+//				 int gramos = rs.getInt("Gramos");
+//				 String provincia = rs.getString("Provincia");
+//				 String ccaa = rs.getString("CCAA");
+//				 int telefono = rs.getInt("Telefono");
+//
+//				 Usuario usuario = new Usuario(dni,);
+//				
+//			}
+//
+//			rs.close();
+//			c.commit();
+//			stmt.close();
+//			c.close();
+//		} catch (Exception e) {
+//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//		}
+//		
+//		
+//	}
+	public List<Paciente> cargarPacientesBDD(){
+		List<Paciente> lstPaciente = new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pacientes;");
+
+			while (rs.next()) {
+
+				String fechaNacimiento = rs.getString("FechaNac");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellidos");
+				String dni = rs.getString("DNIPAC");
+				int altura = rs.getInt("Altura");
+				int kg = rs.getInt("Peso");
+				int gramos = rs.getInt("Gramos");
+				String comentario = rs.getString("Comentario");
+				String provincia = rs.getString("Provincia");
+				String municipio = rs.getString("Municipio");
+				String calle = rs.getString("Calle");
+				//String estado = rs.getString("Estado");
+				String cp = rs.getString("Cp");
+				String telefono = rs.getString("Telefono");
+				//List<String> electros;
+
+				Paciente newPac = new Paciente ();
+				newPac.setFechaNacimiento(fechaNacimiento);
+				newPac.setAltura(altura);
+				newPac.setKg(kg);
+				newPac.setGramos(gramos);
+				newPac.setComentario(comentario);
+				newPac.setNombre(nombre);
+				newPac.setApellido(apellido);
+				newPac.setDni(dni);
+				newPac.setProvincia(provincia);
+				newPac.setMunicipio(municipio);
+				newPac.setCalle(calle);
+				//newPac.setEstado(estado);
+				newPac.setCp(cp);
+				newPac.setTelefono(telefono);
+				lstPaciente.add(newPac);// AÃƒÂ±adimos los pacientes a lstMedico
+
+			}
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return lstPaciente;
+
+	}
 }
+
+/*select Provincias.Nombre 
+from Provincias 
+join CCAA on Provincias.id_CCAA = CCAA.id_CCAA
+where nombreID ='Galicia';
+para sumar los km2 de todos los municipios de pontevedra
+select Provincias.nombre, sum(km2.Superficie)
+from Municipios 
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join km2 on km2.ID_MUN = Municipios.ID_MUN
+where Provincias.nombre ='León';
+para contar los municipios de pontevedra
+select Provincias.nombre, count(km2.Superficie)
+from Municipios 
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join km2 on km2.ID_MUN = Municipios.ID_MUN
+where Provincias.nombre ='Pontevedra';
+contar las provincias cuyo id es 24 y 25
+select count(*)
+from Municipios 
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join km2 on km2.ID_MUN = Municipios.ID_MUN
+where Provincias.ID_PRV in (24,25);
+ahora lo mismo pero cuyo nombre es lugo o pontevedra
+select count(*)
+from Municipios 
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join km2 on km2.ID_MUN = Municipios.ID_MUN
+where Provincias.nombre in ('Pontevedra', 'Lugo');
+el as es para cambiar el nombre de la columna que se visualiza
+select count(*) as NumeroDeMunicipios
+from Municipios 
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join km2 on km2.ID_MUN = Municipios.ID_MUN
+where Provincias.nombre in ('Pontevedra', 'Lugo');
+para sacar las que empiezan por M
+select * from CCAA 
+where nombreID like'M%'
+para sacar las ccaa con id 10 12 o 15
+select * from CCAA 
+where ID_CCAA in (10,12,15);
+las ccaa que tienen a como segunda letra
+select * from CCAA 
+where nombreid like '_a%';
+MUNICIPIOS CON MAYOR NUMERO DE POBLACION Y LA PROVINCIA A LA QUE PERTENECEN
+select Municipios.Nombre, Provincias.Nombre, HYM FROM Municipios
+join Habitantes on Habitantes.ID_MUN = Municipios.ID_MUN
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+order by hym desc
+limit 10;
+cambiar base de datos
+update Provincias
+set nombre = 'Varcelona'
+where id_PRV = 8;
+Municipios de madrid
+select Municipios.nombre from Municipios 
+join provincias on  Provincias.ID_PRV=Municipios.ID_PRV
+where Provincias.Nombre ='Madrid';
+sacar el numero total de habitantes de cada ccaa
+select CCAA.Nombre, sum(habitantes.hym) as 'Habitantes totales' from Municipios
+join habitantes on Municipios.ID_MUN = habitantes.ID_MUN
+join Provincias on Provincias.ID_PRV = Municipios.ID_PRV
+join CCAA on Provincias.ID_CCAA = CCAA.ID_CCAA
+group by CCAA.Nombre
+BASE DE DATOS LIBROS
+para ver cual es el libro mas leido nos vamos a la tabla de ratings
+y contamos el isbn que mas se repite
+select RATINGS.ISBN, count(ratings.isbn) as num
+from ratings
+group by ratings.isbn
+order by num desc;
+los libros mas leidos son:
+select books.Title, books.Author, count(ratings.isbn) as num
+from ratings
+join Books on books.ISBN = Ratings.ISBN
+group by ratings.isbn
+order by num desc;
+el niño que mas libros ha leido
+select ratings.UserID,Users.Age,count(ratings.UserID) as num
+from ratings
+join Users on ratings.UserID=Users.UserID
+where Users.Age >7 and Users.Age <15
+group by ratings.UserID
+order by num desc;
+libros mas leidos por españoles
+select books.Title, count(Books.isbn) as num
+from Books
+join ratings on Books.ISBN=Ratings.Isbn
+join Users on Users.UserID = Ratings.Userid
+where Users.Location like '%spain%'
+group by books.ISBN
+order by num desc;
+PARA CREAR UNA TABLA NUEVA QUE CONTENGA TITULO Y LOCATION DEL USUARIO QUE LO HA LEIDO:
+create view librouser as 
+select books.Title, users.Location
+from Books
+join Ratings on ratings.ISBN=books.ISBN
+join Users on Users.UserID=Ratings.UserID */
+
+

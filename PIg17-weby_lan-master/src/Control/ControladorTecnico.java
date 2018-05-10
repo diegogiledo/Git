@@ -70,28 +70,10 @@ public class ControladorTecnico implements ActionListener, KeyListener, MouseLis
 		}
 	}
 
-	private void cargarPacientes() {
-		Fichero fichero = new Fichero();
-		try {
-			lstPacientes = fichero.cargarPacientes();
-			DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
-			for (Paciente paciente : lstPacientes) {
-				Object[] fila = new Object[4]; // creamos un objeto de tipo array para las distintas cajas
 
-				fila[0] = paciente.getDni();
-				fila[1] = paciente.getNombre();
-				fila[2] = paciente.getApellido();
-				fila[3] = paciente.getEmail();
-				((DefaultTableModel) model).addRow(fila);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-	public void cargarPacientes2(){
+	public void cargarPacientes(){
 		Conexion c = new Conexion();
-	//	lstPacientes = c.cargarPacientesBBDD();
+		lstPacientes = c.cargarPacientesBBDD();
 		DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
 		for (Paciente paciente : lstPacientes) {
 			Object[] fila = new Object[4]; // creamos un objeto de tipo array para las distintas cajas
