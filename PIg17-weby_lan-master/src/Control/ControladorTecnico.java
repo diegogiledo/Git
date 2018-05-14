@@ -73,7 +73,7 @@ public class ControladorTecnico implements ActionListener, KeyListener, MouseLis
 
 	public void cargarPacientes(){
 		Conexion c = new Conexion();
-		lstPacientes = c.cargarPacientesBBDD();
+		lstPacientes = c.cargarPacientesMedBBDD();
 		DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
 		for (Paciente paciente : lstPacientes) {
 			Object[] fila = new Object[4]; // creamos un objeto de tipo array para las distintas cajas

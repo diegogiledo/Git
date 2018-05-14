@@ -141,7 +141,7 @@ public class ControladorMedico implements ActionListener, KeyListener, MouseList
 
 	private void cargarPacientesMedico() {
 		Conexion c = new Conexion();
-		lstPacientes = c.cargarPacientesBDD();
+		lstPacientes = c.cargarPacientesTecBBDD();
 		DefaultTableModel model = (DefaultTableModel) ventanaControlada.getTable().getModel();
 		for (Paciente paciente : lstPacientes) {
 			Object[] fila = new Object[4]; // creamos un objeto de tipo array

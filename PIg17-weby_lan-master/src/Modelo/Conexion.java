@@ -1,5 +1,10 @@
 package Modelo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 //hola
 
 import java.sql.Connection;
@@ -314,7 +319,7 @@ public class Conexion {
 		return correcto;
 	}
 
-	public List<Paciente> cargarPacientesBBDD() {
+	public List<Paciente> cargarPacientesMedBBDD() {
 		List<Paciente> lstPaciente = new ArrayList<Paciente>();
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -365,51 +370,8 @@ public class Conexion {
 		return lstPaciente;
 	}
 
-//	public void ampliarInfo(String dni){
-//		try {
-//			Class.forName("org.sqlite.JDBC");
-//			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
-//			c.setAutoCommit(false);
-//
-//			stmt = c.createStatement();
-//			ResultSet rs = stmt.executeQuery(
-//					"select * from Pacientes where Pacientes.DNIPAC = '"+dni+"'");
-//
-//			while (rs.next()) {
-//				String dniPac = rs.getString("DNIPAC");
-//				String nombre = rs.getString("Nombre");
-//				String apellidos = rs.getString("Apellidos");
-//				String email = rs.getString("Email");
-//
-//				// ampliarinfo
-//				 String municipio = rs.getString("Municipio");
-//				 String calle = rs.getString("Calle");
-//				 String estado = rs.getString("Estado");
-//				 String sexo = rs.getString("Sexo");
-//				 String comentario = rs.getString("Comentario");
-//				 String fechaNac = rs.getString("FechaNac");
-//				 int altura = rs.getInt("Altura");
-//				 int peso = rs.getInt("Peso");
-//				 int gramos = rs.getInt("Gramos");
-//				 String provincia = rs.getString("Provincia");
-//				 String ccaa = rs.getString("CCAA");
-//				 int telefono = rs.getInt("Telefono");
-//
-//				 Usuario usuario = new Usuario(dni,);
-//				
-//			}
-//
-//			rs.close();
-//			c.commit();
-//			stmt.close();
-//			c.close();
-//		} catch (Exception e) {
-//			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-//		}
-//		
-//		
-//	}
-	public List<Paciente> cargarPacientesBDD(){
+
+	public List<Paciente> cargarPacientesTecBBDD(){
 		List<Paciente> lstPaciente = new ArrayList<Paciente>();
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -464,5 +426,43 @@ public class Conexion {
 		}
 		return lstPaciente;
 
+	}
+	
+	public Electro cargarElectroBBDD(String dniPac) throws IOException {
+		Electro electro = null;
+		double intervalo;
+		Double[] medicion;
+		String comentario;
+		
+		try {
+	
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + BBDDName);
+			c.setAutoCommit(false);
+
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Electrocardiogramas;");
+
+			while (rs.next()) {
+		
+		
+			intervalo = (1 /rs.getDouble("Tiempo"));// Intervalo
+													// (1/mediciones/segundo)
+			rs.getBlob("Data");// Mediciones
+										  // conjunto
+			comentario = rs.getString("Diagnostico");
+			if (comentario == null) {
+				comentario = Constantes.COMENTARIOINICIALECG;
+			}
+			//electro = new Electro(medicion, intervalo, comentario);
+			}
+			rs.close();
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+		return electro;
 	}
 }
