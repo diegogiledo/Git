@@ -1,0 +1,2 @@
+Juan;Garcia Perez;04589265Y;Arteixo;Cami�o do Cancelo 13;Moderado;676798215;hombre;El paciente debe hacer una prueba a la semana;ECG_20171129_pac1_tec1;ECG_20171205_pac1_tec1;ECG_20171213_pac1_tec4;ECG_20171220_pac1_tec1
+Carmela;Fraga Mosqueira;86739916Q;Oleiros;Rua Tierno Galvan 58;Critico;684542145;mujer;Atentos a los comentarios del paciente por si comunica algun tipo de dolor localizado;ECG_20180103_pac2_tec1;ECG_20180105_pac2_tec1;ECG_20180108_pac2_tec4;ECG_20180112_pac2_tec4:ECG_20180119_pac2_tec1;ECG_20180122_pac2_tec4

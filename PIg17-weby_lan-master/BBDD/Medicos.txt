@@ -1,0 +1,4 @@
+SergioBemposta;Sergio;Bemposta Rosende;09118512R;Complejo Hospitalario Universitario;A Coruña; 981178139;sergio@uem.es;hombre;18076221S;04589265Y
+BorjaMonsalve;Borja;Monsalve Piqueras;81969556V;Hospital Alvaro Cunqueiro;Galicia;986811111;borjamon@uem.es;hombre;18076221S;18076220Z
+MariLuzMorales;Maria de la Luz;Morales Botello;56566443J;Hospital Universitario Lucus Augusti;Arteixo;982296480;mariluz@uem.es;mujer;18076221S
+aabad96;Alejandro;Abad Martínez;18076220Z;Hospital Universitario de Navarra;Pamplona;982296480;aabad96@icloud.com;desconocido;58475896Y;04589265Y;15478954P
